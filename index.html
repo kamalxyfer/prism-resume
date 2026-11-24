@@ -20,14 +20,20 @@ body{--panel:#fff;--line:#d9ded4;--muted:#626c61;background:#f4f6f0;color:#20251
 #applyStatus:empty{display:none}
 @media screen{
  #resume,#designPreview{min-inline-size:0;container-type:inline-size}
- .paper{inline-size:100%;min-inline-size:0;block-size:auto}
+ #resume .paper,#designPreview .paper{
+  inline-size:100%;
+  min-inline-size:0;
+  block-size:auto;
+  min-block-size:141.4286cqi;
+  aspect-ratio:auto;
+ }
+ #resume .paper.letter{min-block-size:129.4118cqi}
  .paper :is(h1,h3,p,.sections,section){min-inline-size:0;max-inline-size:100%;overflow-wrap:anywhere}
  .paper{padding:min(var(--resume-margin,32px),12%)}
 }
 @container (max-width:440px){
  .paper.layout5 .sections{columns:1}
  .paper.group2 .sections,.paper.layout7 section{grid-template-columns:minmax(0,1fr);gap:0}
- #designPreview .paper{min-height:0}
 }
 @media screen and (max-width:760px){
  .studio{grid-template-columns:minmax(0,1fr)}
