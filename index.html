@@ -10,12 +10,39 @@ body{--panel:#fff;--line:#d9ded4;--muted:#626c61;background:#f4f6f0;color:#20251
 .fieldhead span{min-width:0;overflow-wrap:anywhere}
 .paper.letter{aspect-ratio:8.5/11}
 #editor :is(input,textarea,select){max-width:100%}
-@media print{#storageStatus{display:none!important}}
+@media print{#storageStatus,.previewJump{display:none!important}.paper{padding:var(--resume-margin,32px)}}
 .panel #skipAutoAI{width:auto}
 .panel input[type=color]{min-height:32px;padding:3px}
 @media(max-width:400px){.fieldhead{flex-wrap:wrap}.fieldhead span{min-width:75px;overflow-wrap:anywhere}}
 @media print{#editor{padding:0}#editor>small{display:none}.paper.letter{aspect-ratio:auto}.paper.layout3{border-top:12px solid var(--accent)}.paper.layout9{border-left:12px solid var(--accent)}}
-</style></head><body><header><b>◈ PRISM<span> / STUDIO</span></b><nav><a href="#features">Features</a><a href="#collection">Templates</a></nav><button id="theme">◐ Theme</button></header><main><div id="homePage"><section class="hero"><div class="hero-copy"><small>THE NEXT GENERATION OF CAREER DESIGN</small><h1>Your future.<br/><em>Beautifully built.</em></h1><p>A premium resume studio for ambitious people. Design with confidence, edit in real time and own your story.</p><a class="primary" href="#collection">Create my resume ↗</a> <a class="secondary" href="#features">Discover PRISM</a><p class="fine">Free to use · No account required · Local-first</p></div><div class="stage"><div class="orbit"></div><div id="heroSheets"></div><div class="float-tag">◈ Live document studio</div></div></section><section id="journey"><small>01 / THE EXPERIENCE</small><h2>Watch your resume come to life.</h2><div class="walk"><div id="walkSteps"></div><div aria-live="off" id="walkScreen"></div></div></section><section class="features" id="features"><small>DESIGNED DIFFERENTLY</small><h2>Everything you need. Nothing you don't.</h2><div class="feature-grid"><article><b>01 / Design</b><h3>Find your signature.</h3><p>Explore real, editable professional layouts.</p></article><article><b>02 / Intelligence</b><h3>Make every word count.</h3><p>Compare your resume with a target job description.</p></article><article><b>03 / Privacy</b><h3>Your story stays yours.</h3><p>Local storage and optional on-device AI.</p></article></div></section></div><div hidden="" id="wizardNav"><button id="backStep">← Back</button><strong id="stepLabel"></strong><button class="primary" id="nextStep">Continue →</button><div id="stepTrack"></div></div><section hidden="" id="careerPage"><small>STEP 01 / CAREER PATH</small><h2>Choose your career path.</h2><p>Select the collection that suits your next move.</p><div class="feature-grid" id="careerChoices"></div></section><section id="collection"><small>01 / CURATED COLLECTION</small><h2>Find your signature.</h2><p>Explore actual resume designs. Select a document to preview it before editing.</p><div class="toolbar"><select aria-label="Template category" id="category"><option>All</option></select><input aria-label="Search templates" id="search" placeholder="Search templates"/></div><div id="gallery"></div></section><dialog id="designDialog" aria-labelledby="designTitle"><div class="toolbar"><b id="designTitle"></b><button id="closeDesign">Close</button><button class="primary" id="useDesign">Use this design →</button></div><div id="designPreview"></div></dialog><section id="editor"><small>02 / LIVE STUDIO</small><h2>Make it yours.</h2><div class="toolbar"><select aria-label="Saved resumes" id="saved"></select><button id="new">New</button><button id="duplicate">Duplicate</button><button id="undo">Undo</button><button id="redo">Redo</button><button id="backup">Backup JSON</button><label class="button restoreButton">Restore JSON<input accept=".json,application/json" id="restore" type="file"/></label><button id="delete">Delete resume</button></div><p id="storageStatus" role="status" hidden></p><div class="studio"><div class="panel"><div data-stage="content"><div id="fields"></div><button id="custom">Add custom section</button></div><div data-stage="appearance"><h3>Appearance</h3><label>Paper background <input id="background" type="color"/></label><label>Body text <input id="ink" type="color"/></label><label>Heading color <input id="heading" type="color"/></label><label>Font size <input id="size" max="18" min="9" step="1" type="range"/></label><label>Page margins <input id="margin" max="60" min="12" step="2" type="range"/></label><label>Section spacing <input id="sectionGap" max="30" min="4" step="2" type="range"/></label><label>Accent <input id="accent" type="color"/></label><label>Font <select id="font"><option>Arial</option><option>Georgia</option><option>Verdana</option></select></label><label>Spacing <input id="spacing" max="1.8" min="1" step=".1" type="range"/></label><label>Paper <select id="paper"><option>A4</option><option>Letter</option></select></label></div><div data-stage="review"><h3>Job match</h3><textarea aria-label="Job description" id="jd" maxlength="30000" placeholder="Paste job description"></textarea><div aria-live="polite" id="ats"></div><p id="aiNotice">Next: Local AI starts automatically on the AI page. First use may download approximately 410–450 MB; Wi-Fi recommended. Resume data stays on your device.</p><label><input type="checkbox" id="skipAutoAI"> Use Smart Assist instead (no model download)</label></div><div data-stage="ai"><h3>PRISM Smart Assist & Local AI</h3><label for="aiMode">Assistant mode</label><select id="aiMode"><option value="local" selected>Generative Local AI — automatic setup</option><option value="smart">Smart Assist — no model download</option></select><p id="modeInfo">Instant rule-based writing and analysis. No LLM or AI server required.</p><p>SmolLM2 360M (4-bit): 388 MB model weights; estimated 410–450 MB including runtime and tokenizer. CPU/WASM or WebGPU. No API key. Resume content stays on device during inference.</p><label for="aiModel">Local model (first download requires internet)</label><select id="aiModel"></select><p>One compact English model. Automatically prepares on this page; browser cache can be cleared or evicted. Low-memory devices may not run it.</p><p id="aiStatus" role="status" aria-live="polite">AI prepares automatically when you reach this step.</p><select aria-label="AI task" id="task"></select><label for="aiQuestion">Optional additional instruction</label><textarea id="aiQuestion" maxlength="1000" placeholder="Ask a resume-related question"></textarea><button id="generate">Generate suggestion</button><textarea aria-label="AI suggestion" id="aiOutput" maxlength="100000" placeholder="Review suggestion here"></textarea><button id="apply" disabled>Apply summary to resume</button></div><div id="exportPage"><h3>Your resume is ready for review.</h3><p>Check your details in the preview, then choose PDF or editable Word.</p></div></div><div class="preview"><div class="toolbar"><button id="pdf">Print / Save PDF</button><button id="docx">Download DOCX</button></div><div id="resume"></div></div></div></section><footer>Created by Kamal Goswami · <a href="#privacy">Privacy</a> · Open-source project<details id="privacy"><summary>Privacy policy</summary>Resume data is stored locally in your browser. Entering the AI step automatically downloads model and runtime files unless Smart Assist is selected beforehand. Local AI downloads these files from Hugging Face and jsDelivr; these hosts receive normal download connection information, not your resume prompts. Inference runs on your device. No account is required. Clear browser storage to remove saved resumes.</details></footer></main><script>(()=>{const categories=['Classic','Graduate','Career Change','Independence','Academic'];
+
+.previewJump{display:none}
+#applyStatus:empty{display:none}
+@media screen{
+ #resume,#designPreview{min-inline-size:0;container-type:inline-size}
+ .paper{inline-size:100%;min-inline-size:0;block-size:auto}
+ .paper :is(h1,h3,p,.sections,section){min-inline-size:0;max-inline-size:100%;overflow-wrap:anywhere}
+ .paper{padding:min(var(--resume-margin,32px),12%)}
+}
+@container (max-width:440px){
+ .paper.layout5 .sections{columns:1}
+ .paper.group2 .sections,.paper.layout7 section{grid-template-columns:minmax(0,1fr);gap:0}
+ #designPreview .paper{min-height:0}
+}
+@media screen and (max-width:760px){
+ .studio{grid-template-columns:minmax(0,1fr)}
+ .previewJump{display:inline-block}
+ #resume,#editor{scroll-margin-top:110px}
+ .paper.layout5 .sections{columns:1}
+ .paper.group2 .sections,.paper.layout7 section{grid-template-columns:minmax(0,1fr);gap:0}
+}
+</style></head><body><header><b>◈ PRISM<span> / STUDIO</span></b><nav><a href="#features">Features</a><a href="#collection">Templates</a></nav><button id="theme">◐ Theme</button></header><main><div id="homePage"><section class="hero"><div class="hero-copy"><small>THE NEXT GENERATION OF CAREER DESIGN</small><h1>Your future.<br/><em>Beautifully built.</em></h1><p>A premium resume studio for ambitious people. Design with confidence, edit in real time and own your story.</p><a class="primary" href="#collection">Create my resume ↗</a> <a class="secondary" href="#features">Discover PRISM</a><p class="fine">Free to use · No account required · Local-first</p></div><div class="stage"><div class="orbit"></div><div id="heroSheets"></div><div class="float-tag">◈ Live document studio</div></div></section><section id="journey"><small>01 / THE EXPERIENCE</small><h2>Watch your resume come to life.</h2><div class="walk"><div id="walkSteps"></div><div aria-live="off" id="walkScreen"></div></div></section><section class="features" id="features"><small>DESIGNED DIFFERENTLY</small><h2>Everything you need. Nothing you don't.</h2><div class="feature-grid"><article><b>01 / Design</b><h3>Find your signature.</h3><p>Explore real, editable professional layouts.</p></article><article><b>02 / Intelligence</b><h3>Make every word count.</h3><p>Compare your resume with a target job description.</p></article><article><b>03 / Privacy</b><h3>Your story stays yours.</h3><p>Local storage and optional on-device AI.</p></article></div></section></div><div hidden="" id="wizardNav"><button id="backStep">← Back</button><strong id="stepLabel"></strong><button class="primary" id="nextStep">Continue →</button><div id="stepTrack"></div></div><section hidden="" id="careerPage"><small>STEP 01 / CAREER PATH</small><h2>Choose your career path.</h2><p>Select the collection that suits your next move.</p><div class="feature-grid" id="careerChoices"></div></section><section id="collection"><small>01 / CURATED COLLECTION</small><h2>Find your signature.</h2><p>Explore actual resume designs. Select a document to preview it before editing.</p><div class="toolbar"><select aria-label="Template category" id="category"><option>All</option></select><input aria-label="Search templates" id="search" placeholder="Search templates"/></div><div id="gallery"></div></section><dialog id="designDialog" aria-labelledby="designTitle"><div class="toolbar"><b id="designTitle"></b><button id="closeDesign">Close</button><button class="primary" id="useDesign">Use this design →</button></div><div id="designPreview"></div></dialog><section id="editor"><small>02 / LIVE STUDIO</small><h2>Make it yours.</h2><div class="toolbar"><a class="button previewJump" href="#resume">Live preview ↓</a><select aria-label="Saved resumes" id="saved"></select><button id="new">New</button><button id="duplicate">Duplicate</button><button id="undo">Undo</button><button id="redo">Redo</button><button id="backup">Backup JSON</button><label class="button restoreButton">Restore JSON<input accept=".json,application/json" id="restore" type="file"/></label><button id="delete">Delete resume</button></div><p id="storageStatus" role="status" hidden></p><div class="studio"><div class="panel"><div data-stage="content"><div id="fields"></div><button id="custom">Add custom section</button></div><div data-stage="appearance"><h3>Appearance</h3><label>Paper background <input id="background" type="color"/></label><label>Body text <input id="ink" type="color"/></label><label>Heading color <input id="heading" type="color"/></label><label>Font size <input id="size" max="18" min="9" step="1" type="range"/></label><label>Page margins <input id="margin" max="60" min="12" step="2" type="range"/></label><label>Section spacing <input id="sectionGap" max="30" min="4" step="2" type="range"/></label><label>Accent <input id="accent" type="color"/></label><label>Font <select id="font"><option>Arial</option><option>Georgia</option><option>Verdana</option></select></label><label>Spacing <input id="spacing" max="1.8" min="1" step=".1" type="range"/></label><label>Paper <select id="paper"><option>A4</option><option>Letter</option></select></label></div><div data-stage="review"><h3>Job match</h3><textarea aria-label="Job description" id="jd" maxlength="30000" placeholder="Paste job description"></textarea><div aria-live="polite" id="ats"></div><p id="aiNotice">Next: Local AI starts automatically on the AI page. First use may download approximately 410–450 MB; Wi-Fi recommended. Resume data stays on your device.</p><label><input type="checkbox" id="skipAutoAI"> Use Smart Assist instead (no model download)</label></div><div data-stage="ai"><h3>PRISM Smart Assist & Local AI</h3><label for="aiMode">Assistant mode</label><select id="aiMode"><option value="local" selected>Generative Local AI — automatic setup</option><option value="smart">Smart Assist — no model download</option></select><p id="modeInfo">Instant rule-based writing and analysis. No LLM or AI server required.</p><p>SmolLM2 360M (4-bit): 388 MB model weights; estimated 410–450 MB including runtime and tokenizer. CPU/WASM or WebGPU. No API key. Resume content stays on device during inference.</p><label for="aiModel">Local model (first download requires internet)</label><select id="aiModel"></select><p>One compact English model. Automatically prepares on this page; browser cache can be cleared or evicted. Low-memory devices may not run it.</p><p id="aiStatus" role="status" aria-live="polite">AI prepares automatically when you reach this step.</p><select aria-label="AI task" id="task"></select><label for="aiQuestion">Optional additional instruction</label><textarea id="aiQuestion" maxlength="1000" placeholder="Ask a resume-related question"></textarea><button id="generate">Generate suggestion</button><textarea aria-label="AI suggestion" id="aiOutput" maxlength="100000" placeholder="Review suggestion here"></textarea><div id="suggestionActions" hidden>
+<label for="applyTarget">Apply to resume section</label>
+<select id="applyTarget"></select>
+<label id="newSectionLabel" hidden>New section title <input id="newSectionTitle" maxlength="100"/></label>
+<div class="toolbar"><button class="primary" id="apply" disabled>Apply suggestion</button><button id="copySuggestion">Copy suggestion</button></div>
+<p id="applyStatus" role="status"></p>
+</div></div><div id="exportPage"><h3>Your resume is ready for review.</h3><p>Check your details in the preview, then choose PDF or editable Word.</p></div></div><div class="preview"><a class="button previewJump" href="#editor">Back to editor ↑</a><div class="toolbar"><button id="pdf">Print / Save PDF</button><button id="docx">Download DOCX</button></div><div id="resume"></div></div></div></section><footer>Created by Kamal Goswami · <a href="#privacy">Privacy</a> · Open-source project<details id="privacy"><summary>Privacy policy</summary>Resume data is stored locally in your browser. Entering the AI step automatically downloads model and runtime files unless Smart Assist is selected beforehand. Local AI downloads these files from Hugging Face and jsDelivr; these hosts receive normal download connection information, not your resume prompts. Inference runs on your device. No account is required. Clear browser storage to remove saved resumes.</details></footer></main><script>(()=>{const categories=['Classic','Graduate','Career Change','Independence','Academic'];
 const templates=categories.flatMap((category,g)=>['Essential','Centered','Editorial','Banner','Precision','Columns','Slate','Timeline','Signature','Edge'].map((name,l)=>({id:g*10+l,category,name:category+' '+name,g,l})));
 templates.push(...['Sovereign','Helvetica','Oxford','Sterling','Aurelius','Vanguard','Maison','Meridian'].map((name,i)=>({id:50+i,category:'Signature Reserve',name,g:5,l:10+i}))); categories.push('Signature Reserve');
 const fresh=()=>({name:'',contact:'',sections:[{title:'Professional Summary',text:''},{title:'Work Experience',text:''},{title:'Education',text:''},{title:'Skills',text:''},{title:'Certifications',text:''},{title:'Projects',text:''},{title:'Achievements',text:''}],background:'#ffffff',ink:'#222222',heading:'#26394c',size:'12',margin:'32',sectionGap:'12',template:0,accent:'#5143a6',font:'Arial',spacing:'1.4',paper:'A4',jd:''});
@@ -80,7 +107,7 @@ function save(){
   storageWarning('Changes could not be saved to this browser. Download a JSON backup to keep them.');
  }
 }
-function change(fn){history.push(JSON.stringify(r));if(history.length>100)history.shift();future=[];fn();save();render();}function button(t,fn){const b=el('button',t);b.onclick=fn;return b}function paper(data,mini=false){const t=templates[data.template],p=el('div');p.className=`${mini?'mini':'paper'} layout${t.l} group${t.g}${!mini&&data.paper==='Letter'?' letter':''}`;p.style.setProperty('--accent',data.accent);p.style.setProperty('--font',data.font);p.style.setProperty('--spacing',data.spacing);if(!mini){p.style.background=data.background;p.style.color=data.ink;p.style.fontSize=data.size+'px';p.style.padding=data.margin+'px';p.style.setProperty('--heading',data.heading);p.style.setProperty('--sectionGap',data.sectionGap+'px')}p.append(el('h1',data.name||'Your Name'));const c=el('p',data.contact||'Contact information');c.className='contact';p.append(c);const ss=el('div');ss.className='sections';for(const s of data.sections){if(!s.text.trim())continue;const a=el('section');a.append(el('h3',s.title),el('p',s.text));ss.append(a)}p.append(ss);return p}const sample={...fresh(),name:'Alex Morgan',contact:'Business & Operations Analyst | alex@example.com | New Delhi',sections:[{title:'Professional Summary',text:'Analytical professional specializing in operational excellence, workflow optimization and data-driven decisions.'},{title:'Work Experience',text:'Senior Operations Analyst | Meridian Consulting\n2023 – Present\n• Improved operational workflows and quality controls.\n• Supported automation and reporting initiatives.\n\nOperations Associate | Atlas Solutions\n2021 – 2023\n• Managed data validation and process documentation.'},{title:'Education',text:'Bachelor of Business Administration | University of Delhi | 2021'},{title:'Skills',text:'Data Analysis, Excel, Process Improvement, Workflow Automation, Quality Assurance'},{title:'Certifications',text:'Process Excellence Fundamentals | 2024'}]};const palette=['#26394c','#202020','#303c55','#38564e','#796344','#244f64','#65504a','#343d4d'];let pending=0;function previewDesign(t){pending=t.id;$('designTitle').textContent=t.name;$('designPreview').replaceChildren(paper({...sample,template:t.id,accent:palette[t.id%8]}));$('designDialog').showModal()}$('closeDesign').onclick=()=>$('designDialog').close();$('useDesign').onclick=()=>{change(()=>{r.template=pending;r.accent=palette[pending%8]});fields();$('designDialog').close();go(3)};function gallery(){const g=$('gallery');g.replaceChildren();for(const t of templates.filter(t=>($('category').value==='All'||t.category===$('category').value)&&t.name.toLowerCase().includes($('search').value.trim().toLowerCase()))){const b=button('',()=>previewDesign(t));b.className='tile'+(r.template===t.id?' selected':'');const wrap=el('div');wrap.className='thumbnail';wrap.append(paper({...sample,template:t.id,accent:palette[t.id%8]},true));b.append(wrap,el('strong',t.name),el('small','Preview design ↗'));g.append(b)}if(!g.childElementCount)g.append(el('p','No templates match your search.'));fitTiles()}function fitTiles(){document.querySelectorAll('.thumbnail').forEach(w=>{const p=w.firstElementChild;if(p)p.style.transform='scale('+w.clientWidth/420+')'})}window.addEventListener('resize',fitTiles);for(const id of [53,50,54]){const w=el('div');w.className='thumbnail hero-sheet';w.append(paper({...sample,template:id,accent:palette[id%8]},true));$('heroSheets').append(w)}function render(){ $('resume').replaceChildren(paper(r));const s=score(r);$('ats').textContent=`Estimated compatibility: ${s.score}/100\n${s.checks.map(c=>`${c[1]?'✓':'○'} ${c[0]}`).join(' · ')}\nMatched: ${s.matched.join(', ')||'None'}\nMissing: ${s.missing.join(', ')||'None'}`;$('ats').style.whiteSpace='pre-wrap';$('saved').replaceChildren(...records.map((x,i)=>{const o=el('option',x.name||`Resume ${i+1}`);o.value=i;return o}));$('saved').value=idx;}function fields(){const f=$('fields');f.replaceChildren();for(const [key,title] of [['name','Full name'],['contact','Contact details']]){const l=el('label',title),i=el('input');i.value=r[key];i.maxLength=key==='name'?300:1000;i.oninput=()=>change(()=>r[key]=i.value);l.append(i);f.append(l)}r.sections.forEach((s,i)=>{const h=el('div');h.className='fieldhead';h.append(el('span',s.title),button('↑',()=>{if(i>0){change(()=>[r.sections[i-1],r.sections[i]]=[r.sections[i],r.sections[i-1]]);fields()}}),button('↓',()=>{if(i<r.sections.length-1){change(()=>[r.sections[i+1],r.sections[i]]=[r.sections[i],r.sections[i+1]]);fields()}}),button('×',()=>{change(()=>r.sections.splice(i,1));fields()}));const a=el('textarea');a.value=s.text;a.maxLength=100000;a.setAttribute('aria-label',s.title);a.oninput=()=>change(()=>s.text=a.value);for(const [index,action] of ['Move up','Move down','Remove'].entries())h.children[index+1].setAttribute('aria-label',action+' '+s.title);const field=el('div');field.append(h,a);f.append(field)});for(const k of ['accent','font','spacing','paper','jd','background','ink','heading','size','margin','sectionGap'])$(k).value=r[k];}function switchTo(i){if(busyAI){stopAI();updateMode()}clearSuggestion();idx=i;r=records[i];history=[];future=[];fields();render();save()}for(const c of categories)$('category').append(el('option',c));$('category').onchange=gallery;$('search').oninput=gallery;for(const k of ['accent','font','spacing','paper','jd','background','ink','heading','size','margin','sectionGap'])$(k).oninput=()=>change(()=>r[k]=$(k).value);$('saved').onchange=()=>switchTo(+$('saved').value);$('new').onclick=()=>{records.push(fresh());switchTo(records.length-1)};$('duplicate').onclick=()=>{records.push(structuredClone(r));switchTo(records.length-1)};$('delete').onclick=()=>{if(confirm('Delete this resume from local storage?')){records.splice(idx,1);if(!records.length)records.push(fresh());switchTo(0)}};$('undo').onclick=()=>{if(history.length){future.push(JSON.stringify(r));r=JSON.parse(history.pop());clearSuggestion();save();fields();render()}};$('redo').onclick=()=>{if(future.length){history.push(JSON.stringify(r));r=JSON.parse(future.pop());clearSuggestion();save();fields();render()}};$('custom').onclick=()=>{const title=prompt('Section title')?.trim();if(title&&r.sections.length<40){change(()=>r.sections.push({title:title.slice(0,100),text:''}));fields()}};function download(blob,name){const u=URL.createObjectURL(blob),a=el('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}$('backup').onclick=()=>download(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}),'resume.json');$('restore').onchange=async()=>{try{const file=$('restore').files[0];if(!file)return;if(file.size>30000000)throw Error('Backup exceeds the 30 MB limit');const x=validate(JSON.parse(await file.text()));records.push(x);switchTo(records.length-1)}catch(e){alert(e.message)}$('restore').value=''};$('theme').onclick=()=>{
+function change(fn){history.push(JSON.stringify(r));if(history.length>100)history.shift();future=[];fn();if(stage!==6&&suggestionRecord)clearSuggestion();save();render();}function button(t,fn){const b=el('button',t);b.onclick=fn;return b}function paper(data,mini=false){const t=templates[data.template],p=el('div');p.className=`${mini?'mini':'paper'} layout${t.l} group${t.g}${!mini&&data.paper==='Letter'?' letter':''}`;p.style.setProperty('--accent',data.accent);p.style.setProperty('--font',data.font);p.style.setProperty('--spacing',data.spacing);if(!mini){p.style.background=data.background;p.style.color=data.ink;p.style.fontSize=data.size+'px';p.style.setProperty('--resume-margin',data.margin+'px');p.style.setProperty('--heading',data.heading);p.style.setProperty('--sectionGap',data.sectionGap+'px')}p.append(el('h1',data.name||'Your Name'));const c=el('p',data.contact||'Contact information');c.className='contact';p.append(c);const ss=el('div');ss.className='sections';for(const s of data.sections){if(!s.text.trim())continue;const a=el('section');a.append(el('h3',s.title),el('p',s.text));ss.append(a)}p.append(ss);return p}const sample={...fresh(),name:'Alex Morgan',contact:'Business & Operations Analyst | alex@example.com | New Delhi',sections:[{title:'Professional Summary',text:'Analytical professional specializing in operational excellence, workflow optimization and data-driven decisions.'},{title:'Work Experience',text:'Senior Operations Analyst | Meridian Consulting\n2023 – Present\n• Improved operational workflows and quality controls.\n• Supported automation and reporting initiatives.\n\nOperations Associate | Atlas Solutions\n2021 – 2023\n• Managed data validation and process documentation.'},{title:'Education',text:'Bachelor of Business Administration | University of Delhi | 2021'},{title:'Skills',text:'Data Analysis, Excel, Process Improvement, Workflow Automation, Quality Assurance'},{title:'Certifications',text:'Process Excellence Fundamentals | 2024'}]};const palette=['#26394c','#202020','#303c55','#38564e','#796344','#244f64','#65504a','#343d4d'];let pending=0;function previewDesign(t){pending=t.id;$('designTitle').textContent=t.name;$('designPreview').replaceChildren(paper({...sample,template:t.id,accent:palette[t.id%8]}));$('designDialog').showModal()}$('closeDesign').onclick=()=>$('designDialog').close();$('useDesign').onclick=()=>{change(()=>{r.template=pending;r.accent=palette[pending%8]});fields();$('designDialog').close();go(3)};function gallery(){const g=$('gallery');g.replaceChildren();for(const t of templates.filter(t=>($('category').value==='All'||t.category===$('category').value)&&t.name.toLowerCase().includes($('search').value.trim().toLowerCase()))){const b=button('',()=>previewDesign(t));b.className='tile'+(r.template===t.id?' selected':'');const wrap=el('div');wrap.className='thumbnail';wrap.append(paper({...sample,template:t.id,accent:palette[t.id%8]},true));b.append(wrap,el('strong',t.name),el('small','Preview design ↗'));g.append(b)}if(!g.childElementCount)g.append(el('p','No templates match your search.'));fitTiles()}function fitTiles(){document.querySelectorAll('.thumbnail').forEach(w=>{const p=w.firstElementChild;if(p)p.style.transform='scale('+w.clientWidth/420+')'})}window.addEventListener('resize',fitTiles);for(const id of [53,50,54]){const w=el('div');w.className='thumbnail hero-sheet';w.append(paper({...sample,template:id,accent:palette[id%8]},true));$('heroSheets').append(w)}function render(){ $('resume').replaceChildren(paper(r));const s=score(r);$('ats').textContent=`Estimated compatibility: ${s.score}/100\n${s.checks.map(c=>`${c[1]?'✓':'○'} ${c[0]}`).join(' · ')}\nMatched: ${s.matched.join(', ')||'None'}\nMissing: ${s.missing.join(', ')||'None'}`;$('ats').style.whiteSpace='pre-wrap';$('saved').replaceChildren(...records.map((x,i)=>{const o=el('option',x.name||`Resume ${i+1}`);o.value=i;return o}));$('saved').value=idx;}function fields(){const f=$('fields');f.replaceChildren();for(const [key,title] of [['name','Full name'],['contact','Contact details']]){const l=el('label',title),i=el('input');i.value=r[key];i.maxLength=key==='name'?300:1000;i.oninput=()=>change(()=>r[key]=i.value);l.append(i);f.append(l)}r.sections.forEach((s,i)=>{const h=el('div');h.className='fieldhead';h.append(el('span',s.title),button('↑',()=>{if(i>0){change(()=>[r.sections[i-1],r.sections[i]]=[r.sections[i],r.sections[i-1]]);fields()}}),button('↓',()=>{if(i<r.sections.length-1){change(()=>[r.sections[i+1],r.sections[i]]=[r.sections[i],r.sections[i+1]]);fields()}}),button('×',()=>{change(()=>r.sections.splice(i,1));fields()}));const a=el('textarea');a.value=s.text;a.maxLength=100000;a.setAttribute('aria-label',s.title);a.oninput=()=>change(()=>s.text=a.value);for(const [index,action] of ['Move up','Move down','Remove'].entries())h.children[index+1].setAttribute('aria-label',action+' '+s.title);const field=el('div');field.append(h,a);f.append(field)});for(const k of ['accent','font','spacing','paper','jd','background','ink','heading','size','margin','sectionGap'])$(k).value=r[k];}function switchTo(i){if(busyAI){stopAI();updateMode()}clearSuggestion();idx=i;r=records[i];history=[];future=[];fields();render();save()}for(const c of categories)$('category').append(el('option',c));$('category').onchange=gallery;$('search').oninput=gallery;for(const k of ['accent','font','spacing','paper','jd','background','ink','heading','size','margin','sectionGap'])$(k).oninput=()=>change(()=>r[k]=$(k).value);$('saved').onchange=()=>switchTo(+$('saved').value);$('new').onclick=()=>{records.push(fresh());switchTo(records.length-1)};$('duplicate').onclick=()=>{records.push(structuredClone(r));switchTo(records.length-1)};$('delete').onclick=()=>{if(confirm('Delete this resume from local storage?')){records.splice(idx,1);if(!records.length)records.push(fresh());switchTo(0)}};$('undo').onclick=()=>{if(history.length){future.push(JSON.stringify(r));r=JSON.parse(history.pop());clearSuggestion();save();fields();render()}};$('redo').onclick=()=>{if(future.length){history.push(JSON.stringify(r));r=JSON.parse(future.pop());clearSuggestion();save();fields();render()}};$('custom').onclick=()=>{const title=prompt('Section title')?.trim();if(title&&r.sections.length<40){change(()=>r.sections.push({title:title.slice(0,100),text:''}));fields()}};function download(blob,name){const u=URL.createObjectURL(blob),a=el('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}$('backup').onclick=()=>download(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}),'resume.json');$('restore').onchange=async()=>{try{const file=$('restore').files[0];if(!file)return;if(file.size>30000000)throw Error('Backup exceeds the 30 MB limit');const x=validate(JSON.parse(await file.text()));records.push(x);switchTo(records.length-1)}catch(e){alert(e.message)}$('restore').value=''};$('theme').onclick=()=>{
  const dark=document.body.classList.toggle('dark');
  $('theme').setAttribute('aria-pressed',String(dark));
  try{localStorage.setItem('prism-theme',dark?'dark':'light')}catch{}
@@ -122,7 +149,7 @@ function smartAssist(task, r, question='') {
   ].filter(Boolean).join(' ');
   return draft||'Add your experience, education or skills first.';
  }
- case 'Rewrite experience': return exp?lines(exp).map(x=>clean(x).replace(/^[-•]\s*/, '• ').replace(/^•\s*responsible for\s+/i,'• ')).join('\n')+'\n\nReview action verbs and add verified outcomes where available.':'Add work experience first.';
+ case 'Rewrite experience': return exp?lines(exp).map(x=>clean(x).replace(/^[-•]\s*/, '• ').replace(/^•\s*responsible for\s+/i,'• ')).join('\n'):'Add work experience first.';
  case 'Grammar correction': return filled.length?r.sections.filter(s=>s.text.trim()).map(s=>s.title+'\n'+clean(s.text)).join('\n\n')+'\n\nBasic punctuation and whitespace cleanup only.':'Add resume content first.';
  case 'JD analysis': case 'Keyword suggestions': return jd?'Keyword matches: '+a.matched.length+'\nMatched: '+(a.matched.join(', ')||'None')+'\nMissing: '+missing+'\nOnly add terms supported by your actual experience.':'Paste a job description in the ATS stage first.';
  case 'Skills recommendations': return 'Existing skills: '+(skills||'Not provided')+'\nJD terms to review: '+(jd?missing:'Add a job description')+'\nDo not add unverified skills.';
@@ -139,21 +166,61 @@ function smartAssist(task, r, question='') {
 }
 
 const tasks=['Professional summary','Detailed resume rewrite','Advanced resume analysis','Interview preparation','Rewrite experience','Grammar correction','JD analysis','Keyword suggestions','Skills recommendations','Cover letter','Interview introduction','Interview questions','Career transition','Consistency review','Template recommendation','Career category recommendation','Achievement suggestions','Custom resume question'];for(const t of tasks)$('task').append(el('option',t));
-let worker=null,ready=false,busyAI=false,aiTimer,source='',summaryRecord=null,generationRecord=null;
+let worker=null,ready=false,busyAI=false,aiTimer,source='',suggestionRecord=null,generationRecord=null;
 const modelSelect=$('aiModel');
 const model=el('option','SmolLM2-360M-Instruct · 4-bit (388 MB)');
 model.value='HuggingFaceTB/SmolLM2-360M-Instruct';
 modelSelect.append(model);
+const taskSections={
+ 'Professional summary':{title:'Professional Summary',match:/^(?:(?:professional|profile|career|executive) )?summary$/i},
+ 'Rewrite experience':{title:'Work Experience',match:/^(?:(?:work|professional|relevant) )?(?:experience|employment history)$/i}
+};
+const guidanceOnly=new Set(['Add your experience, education or skills first.','Add work experience first.','Add resume content first.']);
+function setApplyTargets(task){
+ const select=$('applyTarget');
+ const options=[el('option','Choose a section')];
+ options[0].value='';
+ for(const [i,section] of r.sections.entries()){
+  const option=el('option',section.title);
+  option.value=String(i);
+  options.push(option);
+ }
+ if(r.sections.length<40){
+  const option=el('option','Add a new section');
+  option.value='new';
+  options.push(option);
+ }
+ select.replaceChildren(...options);
+ const preferred=taskSections[task];
+ if(preferred){
+  const existing=r.sections.findIndex(s=>preferred.match.test(s.title.trim()));
+  if(existing>=0)select.value=String(existing);
+  else if(r.sections.length<40){
+   select.value='new';
+   $('newSectionTitle').value=preferred.title;
+  }
+ }
+}
 function syncAI(){
  const local=$('aiMode').value==='local';
  modelSelect.disabled=true;
  $('generate').disabled=local&&(!ready||busyAI);
  $('task').disabled=busyAI;
- $('apply').disabled=busyAI||summaryRecord!==r||$('task').value!=='Professional summary'||!$('aiOutput').value.trim();
+ const draft=$('aiOutput').value.trim(),target=$('applyTarget').value;
+ const available=!busyAI&&suggestionRecord===r&&!!draft;
+ const newSection=target==='new';
+ $('aiOutput').disabled=busyAI;
+ $('suggestionActions').hidden=!available;
+ $('newSectionLabel').hidden=!newSection;
+ $('apply').disabled=!available||guidanceOnly.has(draft)||!target||
+  (newSection&&(!$('newSectionTitle').value.trim()||r.sections.length>=40));
 }
 function clearSuggestion(){
- summaryRecord=null;
+ suggestionRecord=null;
  $('aiOutput').value='';
+ $('newSectionTitle').value='';
+ $('applyStatus').textContent='';
+ $('applyTarget').replaceChildren();
  syncAI();
 }
 function stopAI(){
@@ -190,7 +257,15 @@ $('aiMode').onchange=()=>{
 };
 $('task').onchange=clearSuggestion;
 $('aiOutput').oninput=()=>{
- if(!busyAI&&$('task').value==='Professional summary')summaryRecord=r;
+ if(suggestionRecord!==r){
+  suggestionRecord=r;
+  setApplyTargets($('task').value);
+ }
+ $('applyStatus').textContent='';
+ syncAI();
+};
+$('applyTarget').onchange=$('newSectionTitle').oninput=()=>{
+ $('applyStatus').textContent='';
  syncAI();
 };
 const workerSource=String.raw`
@@ -223,6 +298,7 @@ self.onmessage=async({data})=>{
    const tasks={
     'Detailed resume rewrite':'Rewrite the supplied resume in clear sections, with concise action-led bullets. Preserve facts and dates.',
     'Professional summary':'Write one concise professional summary paragraph using the supplied resume.',
+    'Rewrite experience':'Rewrite only the work experience section as resume-ready text. Preserve role names, employers, dates and verified accomplishments. Output the section content without a heading or commentary.',
     'Cover letter':'Write a targeted professional cover letter, using only supplied experience.',
     'Interview questions':'Provide five role-specific questions.',
     'Interview preparation':'Provide five relevant interview questions and concise evidence-based sample answers.',
@@ -244,7 +320,10 @@ self.onmessage=async({data})=>{
 `;
 function markSuggestion(text,task){
  $('aiOutput').value=text;
- summaryRecord=task==='Professional summary'?r:null;
+ suggestionRecord=r;
+ $('newSectionTitle').value='';
+ $('applyStatus').textContent='';
+ setApplyTargets(task);
  syncAI();
 }
 function startAI(forceCPU=false){
@@ -314,27 +393,56 @@ $('generate').onclick=()=>{
  try{worker.postMessage({type:'generate',task,source,jd,question})}
  catch(e){failAI('Local generation could not start. '+e.message)}
 };
+$('copySuggestion').onclick=async()=>{
+ const text=$('aiOutput').value.trim();
+ if(!text||suggestionRecord!==r||busyAI)return;
+ const current=r;
+ try{
+  await navigator.clipboard.writeText(text);
+  if(r===current&&$('aiOutput').value.trim()===text)$('applyStatus').textContent='Suggestion copied.';
+ }catch{
+  if(r!==current||$('aiOutput').value.trim()!==text)return;
+  $('aiOutput').focus();
+  $('aiOutput').select();
+  $('applyStatus').textContent='Text selected. Use your browser’s Copy command.';
+ }
+};
 $('apply').onclick=()=>{
- const draft=$('aiOutput').value.trim();
- if($('task').value!=='Professional summary'||summaryRecord!==r||busyAI||!draft)return;
- if(draft==='Add your experience, education or skills first.'){
-  $('aiStatus').textContent='Enter a reviewed summary before applying.';
-  return;
- }
- let summary=r.sections.find(s=>/^(?:(?:professional|profile|career|executive) )?summary$/i.test(s.title.trim()));
- if(!summary&&r.sections.length>=40){
-  $('aiStatus').textContent='Remove an unused section before adding a summary.';
-  return;
- }
- change(()=>{
-  if(!summary){
-   summary={title:'Professional Summary',text:''};
-   r.sections.unshift(summary);
+ if($('apply').disabled)return;
+ const target=$('applyTarget').value;
+ const text=$('aiOutput').value.trim().slice(0,100000);
+ let section=r.sections[Number(target)];
+ if(target==='new'){
+  const title=$('newSectionTitle').value.trim().slice(0,100);
+  const duplicate=r.sections.findIndex(s=>s.title.trim().toLowerCase()===title.toLowerCase());
+  if(duplicate>=0){
+   $('applyTarget').value=String(duplicate);
+   syncAI();
+   $('applyStatus').textContent='This section already exists. Review the selected section and apply again to replace it.';
+   return;
   }
-  summary.text=draft.slice(0,100000);
- });
+  change(()=>{
+   section={title,text};
+   if(title.toLowerCase()==='professional summary')r.sections.unshift(section);
+   else r.sections.push(section);
+  });
+ }
+ if(!section)return;
+ if(target!=='new'){
+  if(section.text===text){
+   $('applyStatus').textContent='This suggestion is already in '+section.title+'.';
+   return;
+  }
+  change(()=>{section.text=text});
+ }
  fields();
- $('aiStatus').textContent='Summary updated in your resume. Use Undo to restore the previous text.';
+ setApplyTargets($('task').value);
+ $('applyTarget').value=String(r.sections.indexOf(section));
+ $('newSectionTitle').value='';
+ syncAI();
+ const message=section.title+' updated. Use Undo to restore the previous text.';
+ $('applyStatus').textContent=message;
+ $('aiStatus').textContent=message;
 };
 fields();
 render();
