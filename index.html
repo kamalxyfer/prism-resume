@@ -211,7 +211,7 @@ function syncAI(){
  const local=$('aiMode').value==='local';
  modelSelect.disabled=true;
  $('generate').disabled=local&&(!ready||busyAI);
- $('task').disabled=busyAI;
+ $('task').disabled=busyAI||!!pendingRequest;
  const draft=$('aiOutput').value.trim(),target=$('applyTarget').value;
  const available=!busyAI&&suggestionRecord===r&&!!draft;
  const newSection=target==='new';
